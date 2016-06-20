@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Code Evaluation</title>
+</head>
+<body>
+	<div class="form-style-10">
+		<center>        
+        <header>
+            Code Evaluation
+        </header>
+
+
+	<form>
+
+
+  <center>
+
+    <div class="two-col">
+
+        <!--   <div class="col1">    
+                        <label style="display:inline"> Compile With Input :</label>
+                        <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="true" ng-model="data.inputRadio"/>yes
+            <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="false" ng-model="inputRadio"/>No
+                    </div>
+        <div class="row col2">
+          <label style="display:inline"> Language : </label>
+            <select style="display:inline" name="lang" ng-model="data.lang">
+              <option value="C">C</option>
+              <option value="C++">C++</option>
+              <option value="Java">Java</option>  
+              <option value="Python">Python</option> 
+              <option value="CS">C#</option>  
+              <option value="VB">VB</option>  
+            </select>
+        </div> -->
+                    
+              </div>
+    </center>
+
+
+		<label class="section" style="float:left">Code</label>
+	
+	<textarea rows="13" cols="100" id="code" name="code" ng-model="data.code"></textarea> 
+	<br/>
+	<label class="section" style="float:left">Input</label>
+	<textarea rows="7" cols="100" id="input" name="input" ng-model="data.input"></textarea> 
+	<br/>
+
+
+	</center>
+  <center>
+  <div class="two-col">
+  <div class="col1">
+    <div class="alert alert-danger" ng-if="nouser">Wrong Answer</div>
+    <div class="alert alert-success" ng-if="nopassword">Answer Accepted</div>
+  </div>
+  </div>
+  </center>
+	
+
+<br>
+<br>
+
+<center>
+  <div class="two-col">
+  	<input type="submit"  class="btn btn-success" ng-click="send(data)"></input>
+  </div>
+</center>
+</form>
+</div>
+</body>
+</html>

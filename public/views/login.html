@@ -1,0 +1,46 @@
+
+<div class="container" style="padding-top:80px">
+
+	
+	<!--<div class="pen-title">
+	<h1 style="text-transform: uppercase; color: #30a5ff">Cafe<span style="color: white">pay</span></h1>
+	</div>-->
+	<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+	<h1 style="text-transform: uppercase; padding-bottom: 16px; color: white"><span class="fa fa-sign-in"></span> Login</h1>
+
+	<!-- show any messages that come back with authentication -->
+	
+		<div class="alert alert-danger" ng-if="nouser">Wrong username</div>
+		<div class="alert alert-danger" ng-if="nopassword">Wrong password</div>
+		<div class="alert alert-danger" ng-if="notoken">Please sign in to continue.</div>
+	 
+	<!-- LOGIN FORM -->
+	<form class="boxed">
+		<div class="form-group">
+			<label style="color: #30a5ff; font-size: 0.9em">Username</label>
+			<input type="text" class="form-control" name="username" ng-model="user.username">
+		</div>
+		<div class="form-group">
+			<label style="color: #30a5ff; font-size: 0.9em">Password</label>
+			<input type="password" class="form-control" name="password" ng-model="user.password">
+		</div>
+
+		<button style="font-size: 1.2em" type="submit" class="btn md cta" ng-click="send(user)">Login</button>
+	</form>
+
+	<hr>
+
+	<p style="color: white">Need an account? <a ui-sref="signup" style="color: #3c3c3c">Signup</a></p>
+	
+	<p><a ui-sref="forgot" style="color: white">Forgot password?</a></p>
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+

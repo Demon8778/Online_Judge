@@ -1,0 +1,41 @@
+<!-- This is a main html file -->
+<!DOCTYPE html>
+<html lang="en" ng-app="Onlinejudge">
+<head>
+	<meta charset="UTF-8">
+<!-- Title -->
+	<title>Online Code Evaluation System | DA-IICT</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Including css and js file-->	
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+	<link href="css/fonts.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/formden.css"/> 
+<!-- Controllers files -->
+	
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/ui-router-styles.js"></script>
+	<script src="js/Controllers/Controllers.js"></script>
+	<script src="js/Services/Services.js"></script>
+	<script src="js/Services/Userdata.js"></script>
+	<script src="js/Controllers/loginCtrl.js"></script>
+	<script src="js/Controllers/studentCtrl.js"></script>
+	<script src="js/Controllers/signupCtrl.js"></script>
+	
+<!-- Body will be displayed here-->
+	<body>
+		<div id="main" ui-router-styles>
+			<!-- angular templating -->
+			<!-- this is where content will be injected -->
+			<div ui-view></div>
+		</div>
+	
+	
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>	
+	
+	
+</body>
+</html>
