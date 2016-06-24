@@ -4,14 +4,14 @@ angular.module('Onlinejudge.Controllers').controller('studentCtrl',["$scope","$h
 			console.log(data);
 			$http.post('/student/compilecode',data).success(function(response){
 				console.log(response)
-				if(response.rsn==='nouser'){
-					$scope.nouser=!0;
-					$scope.nopassword=!1
+				if(response.rsn==='error'){
+					$scope.error=!0;
+					$scope.noerror=!1
 					$scope.output = response.err;
 				}
-				else if(response.rsn==='nopassword'){
-					$scope.nopassword=!0;
-					$scope.nouser=!1
+				else if(response.rsn==='noerror'){
+					$scope.noerror=!0;
+					$scope.error=!1
 					$scope.output=response.err;
 				}
 			})

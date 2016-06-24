@@ -1,4 +1,4 @@
-angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','ui.router', 'uiRouterStyles'])
+angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','ui.router', 'uiRouterStyles', 'ui.ace'])
 .config(function($stateProvider, $urlRouterProvider,$locationProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider

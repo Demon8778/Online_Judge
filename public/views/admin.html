@@ -1,1 +1,40 @@
-<h1>Hello world</h1>
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+		textarea{
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+		}
+	</style>
+	<title>
+		Admin Page
+	</title>
+</head>
+<body>
+
+<div>
+<h3 align="center">Enter New Question here</h3>
+<textarea rows="40" cols="100" name="textarea" required></textarea>
+</div>
+
+<div style="padding-top:80px;">
+	<h3 align="center">Enter Problem Setter's Solution</h3>
+	<textarea rows="40" cols="100" name="solution" required></textarea>
+</div>
+
+<div class="file-upload-btn" style="align:center; padding-bottom:30px;">
+	<label for="file-upload-1" required>Attach Input Test File</label>
+	<input id="file-upload-1" type="file" name="uploaded" />
+</div>
+
+<div class="file-upload-btn" style="align:center; padding-bottom:30px;">
+	<label for="file-upload-2" required>Attach Output Test File</label>
+	<input id="file-upload-2" type="file" name="uploaded1" />
+</div>
+
+<input type="submit" value="Submit" action="kiran.html" method="post"></button>
+</body>
+</html>

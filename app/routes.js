@@ -8,26 +8,14 @@ var bodyParser 		= require('body-parser');
 var rn 				= require("random-number");
 var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
+var compiler = require("compilex");
+var option = {stats: true};
+compiler.init(option);
 
 //Requiring schemas ======================================================
 var User 			= require('./models/user');
 var Temptoken 		= require('./models/temptoken');
 var config 			= require('../config/database');
-require("babel-polyfill");
-
-//hackerearth-node configuration ==========================================
-var hackerEarth = require('hackerearth-node'); //require the Library 
-//Now set your application  
-var hackerEarth=new hackerEarth(
-                                'a91ed55898e4e0c15fee4f3d6422f96131723e50',  //Your Client Secret Key here this is mandatory 
-                                ''  //mode sync=1 or async(optional)=0 or null async is by default and preferred for nodeJS 
-);
-var config={};
-config.time_limit=1;  //your time limit in integer 
-config.memory_limit=323244;  //your memory limit in integer 
-config.source='';  //your source code for which you want to use hackerEarth api 
-config.input="";  //input against which you have to test your source code 
-config.language="C/C++/Py/C#"; //optional choose any one of them or none 
 
 var generatorOptions={
 		length: 8,
@@ -67,15 +55,15 @@ module.exports = function(app) {
 //Using express router ======================================================
 	var router = express.Router();
 	var admin = express.Router();
-	var customer = express.Router();
+	var student = express.Router();
 
 //Using middlewares, It will change the routes ===============================
-	app.use('/customer',customer);
+	app.use('/student',student);
 	app.use('/admin',admin);
 	
 	admin.use(mid);
 	admin.use('/profile',mid4);
-	customer.use(mid,mid1);
+	student.use(mid,mid1);
 	
 	require('./AdminRoutes')(app,admin);
 
@@ -121,7 +109,7 @@ module.exports = function(app) {
 	}
 
 	function mid1(req,res,next){
-		if(!(req.decoded.account == "customer")){
+		if(!(req.decoded.account == "student")){
 			res.json({ success: false, err: "forbidden" }); 
 		}
 		else{
@@ -252,7 +240,7 @@ module.exports = function(app) {
 
 
 //Change password ==========================================================
-	customer.post('/changepassword',function(req,res){
+	student.post('/changepassword',function(req,res){
 		console.log(req.body)
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
@@ -284,7 +272,7 @@ module.exports = function(app) {
 
 
 //Get profile page ==========================================================
-	customer.get('/profile', mid,mid1, function(req, res) {
+	student.get('/profile', mid,mid1, function(req, res) {
 			User.findOne({username: req.decoded.username})
 				.exec(function(err,doc){
 					res.json({success: true, username: req.decoded.username, balance: doc.balance});
@@ -292,27 +280,142 @@ module.exports = function(app) {
 			
 	});
 
-	app.post('/student/compilecode', function(req, res){
-		var config={};
-		var result={};
-		config.time_limit=1;  //your time limit in integer 
-		config.memory_limit=323244;  //your memory limit in integer 
-		config.source='req.body.code';  //your source code for which you want to use hackerEarth api 
-		config.input="req.body.input";  //input against which you have to test your source code 
-		config.language="C"; //optional choose any one of them or none 
+	
 
-		hackerEarth.compile(config, function(err, response){
-			if(err){
-				console.log(err);
-				res.send(err);
-			}	
-			else{
-				result.success = true;
-				result.response = response;
-				res.json(result);
-			}
 
-		})
-	})
+	student.post('/compilecode' , function (req , res ) {
+    
+	var code = req.body.code;	
+	var input = req.body.input;
+    var inputRadio = req.body.inputRadio;
+    var lang = req.body.lang;
+    response = {}
+    if((lang === "C") || (lang === "C++"))
+    {        
+        if(inputRadio === "true")
+        {    
+        	var envData = { OS : "windows" , cmd : "g++"};	   	
+        	compiler.compileCPPWithInput(envData , code ,input , function (data) {
+        		if(data.error)
+        		{
+        			response.success = false;
+        			response.rsn = "error";
+        			response.err = data.error;
+
+        			   		
+        		}
+        		else
+        		{
+        			response.rsn = "noerror"
+        			response.success = true;
+        			response.err = data.output ;
+        		}
+
+        	res.json(response);
+        	});
+	   }
+	   else
+	   {
+	   	response = {};
+	   	var envData = { OS : "windows" , cmd : "g++"};	   
+        	compiler.compileCPP(envData , code , function (data) {
+        	if(data.error)
+        	{
+        		response.success = false;
+        		response.rsn = "error";
+        		response.err = data.error;
+        	}    	
+        	else
+        	{
+        		response.rsn = "noerror"
+        		response.success = true;
+        		response.err = data.output ;
+        	}
+    		res.json(response);
+            });
+	   }
+    }
+    if(lang === "Java")
+    {
+        if(inputRadio === "true")
+        {
+            var envData = { OS : "windows" };     
+            console.log(code);
+            compiler.compileJavaWithInput( envData , code , function(data){
+                res.send(data);
+            });
+        }
+        else
+        {
+            var envData = { OS : "windows" };     
+            console.log(code);
+            compiler.compileJavaWithInput( envData , code , input ,  function(data){
+                res.send(data);
+            });
+
+        }
+
+    }
+    if( lang === "Python")
+    {
+        if(inputRadio === "true")
+        {
+            var envData = { OS : "windows"};
+            compiler.compilePythonWithInput(envData , code , input , function(data){
+                res.send(data);
+            });            
+        }
+        else
+        {
+            var envData = { OS : "windows"};
+            compiler.compilePython(envData , code , function(data){
+                res.send(data);
+            });
+        }
+    }
+    if( lang === "CS")
+    {
+        if(inputRadio === "true")
+        {
+            var envData = { OS : "windows"};
+            compiler.compileCSWithInput(envData , code , input , function(data){
+                res.send(data);
+            });            
+        }
+        else
+        {
+            var envData = { OS : "windows"};
+            compiler.compileCS(envData , code , function(data){
+                res.send(data);
+            });
+        }
+
+    }
+    if( lang === "VB")
+    {
+        if(inputRadio === "true")
+        {
+            var envData = { OS : "windows"};
+            compiler.compileVBWithInput(envData , code , input , function(data){
+                res.send(data);
+            });            
+        }
+        else
+        {
+            var envData = { OS : "windows"};
+            compiler.compileVB(envData , code , function(data){
+                res.send(data);
+            });
+        }
+
+    }
+
+	});
+
+	student.get('/fullStat' , function(req , res ){
+    compiler.fullStat(function(data){
+        res.send(data);
+    });
+	});
 
 };

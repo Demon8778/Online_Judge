@@ -1,8 +1,4 @@
-<html>
-<head>
-    <title>Code Evaluation</title>
-</head>
-<body>
+
 	<div class="form-style-10">
 		<center>        
         <header>
@@ -17,12 +13,12 @@
 
     <div class="two-col">
 
-        <!--   <div class="col1">    
+          <div class="col1">    
                         <label style="display:inline"> Compile With Input :</label>
                         <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="true" ng-model="data.inputRadio"/>yes
-            <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="false" ng-model="inputRadio"/>No
+            <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="false" ng-model="data.inputRadio"/>No
                     </div>
-        <div class="row col2">
+        <div class="col2">
           <label style="display:inline"> Language : </label>
             <select style="display:inline" name="lang" ng-model="data.lang">
               <option value="C">C</option>
@@ -32,27 +28,54 @@
               <option value="CS">C#</option>  
               <option value="VB">VB</option>  
             </select>
-        </div> -->
+        </div>
                     
               </div>
     </center>
+</center>
 
 
-		<label class="section" style="float:left">Code</label>
-	
-	<textarea rows="13" cols="100" id="code" name="code" ng-model="data.code"></textarea> 
-	<br/>
-	<label class="section" style="float:left">Input</label>
-	<textarea rows="7" cols="100" id="input" name="input" ng-model="data.input"></textarea> 
-	<br/>
+  <label class="section" style="clear:both">Editor</label>
+   
+  <div ng-model="data.code" ui-ace="{
+  require: ['ace/ext/language_tools'],
+  advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+  },
+  useWrapMode : true,
+  showGutter: true,
+  theme:'twilight',
+  mode: 'java',
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}"></div>
 
 
-	</center>
+<!-- <juicy-ace-editor class="ace_editor"  theme="ace/theme/monokai" mode="ace/mode/javascript" ng-model="data.code">Editable code here</juicy-ace-editor> -->
+
+
+
+  <div class="two-col">
+    <div class="col1">
+        
+  <label class="section" style="float:left">Input</label>
+  <textarea rows="7" cols="100" id="input" name="input" ng-model="data.input"></textarea> 
+  <br/>
+    </div>
+    <div class="col2">
+      
+  <label class="section" style="float:left">Output</label>
+  <textarea rows="7" cols="100" id="input" name="input" ng-model="output"></textarea> 
+  <br/>
+    </div>
+  </div>
   <center>
   <div class="two-col">
   <div class="col1">
-    <div class="alert alert-danger" ng-if="nouser">Wrong Answer</div>
-    <div class="alert alert-success" ng-if="nopassword">Answer Accepted</div>
+    <div class="alert alert-danger" ng-if="error">Wrong Answer</div>
+    <div class="alert alert-success" ng-if="noerror">Answer Accepted</div>
   </div>
   </div>
   </center>
@@ -68,5 +91,4 @@
 </center>
 </form>
 </div>
-</body>
-</html>
+
