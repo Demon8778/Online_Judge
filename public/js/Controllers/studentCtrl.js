@@ -1,19 +1,20 @@
-angular.module('Onlinejudge.Controllers').controller('studentCtrl',["$scope","$http","$location","$state",function($scope,$http,$location,$state){
+angular.module('Onlinejudge.Controllers').controller('studentCtrl',["$scope","$http","$location","$state", "token", function($scope,$http,$location,$state, token){
 
-		$scope.send=function(data){
-			console.log(data);
-			$http.post('/student/compilecode',data).success(function(response){
-				console.log(response)
-				if(response.rsn==='error'){
-					$scope.error=!0;
-					$scope.noerror=!1
-					$scope.output = response.err;
-				}
-				else if(response.rsn==='noerror'){
-					$scope.noerror=!0;
-					$scope.error=!1
-					$scope.output=response.err;
-				}
-			})
-		}
-	}])
+		token.setnotoken(!1);
+
+		$http.get('/student/profile').success(function(response){
+			console.log(response);
+			if(response.err=="notoken"){
+				token.setnotoken(!0);
+				$location.path("/login")
+			}
+			else if(response.err=="forbidden"){
+				$location.path("/forbidden")
+			}
+			$scope.uname=response.username}
+			)
+
+		
+		$scope.logout=function(){
+			$http.post('/logout').success(function(response){})}
+		}])

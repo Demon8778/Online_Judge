@@ -1,94 +1,41 @@
-
-	<div class="form-style-10">
-		<center>        
-        <header>
-            Code Evaluation
-        </header>
-
-
-	<form>
-
-
-  <center>
-
-    <div class="two-col">
-
-          <div class="col1">    
-                        <label style="display:inline"> Compile With Input :</label>
-                        <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="true" ng-model="data.inputRadio"/>yes
-            <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="false" ng-model="data.inputRadio"/>No
-                    </div>
-        <div class="col2">
-          <label style="display:inline"> Language : </label>
-            <select style="display:inline" name="lang" ng-model="data.lang">
-              <option value="C">C</option>
-              <option value="C++">C++</option>
-              <option value="Java">Java</option>  
-              <option value="Python">Python</option> 
-              <option value="CS">C#</option>  
-              <option value="VB">VB</option>  
-            </select>
-        </div>
-                    
-              </div>
-    </center>
-</center>
-
-
-  <label class="section" style="clear:both">Editor</label>
-   
-  <div ng-model="data.code" ui-ace="{
-  require: ['ace/ext/language_tools'],
-  advanced: {
-      enableSnippets: true,
-      enableBasicAutocompletion: true,
-      enableLiveAutocompletion: true
-  },
-  useWrapMode : true,
-  showGutter: true,
-  theme:'twilight',
-  mode: 'java',
-  onLoad: aceLoaded,
-  onChange: aceChanged
-}"></div>
-
-
-<!-- <juicy-ace-editor class="ace_editor"  theme="ace/theme/monokai" mode="ace/mode/javascript" ng-model="data.code">Editable code here</juicy-ace-editor> -->
-
-
-
-  <div class="two-col">
-    <div class="col1">
+ <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
         
-  <label class="section" style="float:left">Input</label>
-  <textarea rows="7" cols="100" id="input" name="input" ng-model="data.input"></textarea> 
-  <br/>
+        <a class="navbar-brand"><span>C </span>Compiler</a>
+        <ul class="user-menu">
+          <li class="dropdown pull-right">
+            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> {{uname}}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              
+              <li><a ui-sref=".changepassword"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Change Password</a></li>
+              <li><a ui-sref="home" ng-click="logout()"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+              
     </div>
-    <div class="col2">
-      
-  <label class="section" style="float:left">Output</label>
-  <textarea rows="7" cols="100" id="input" name="input" ng-model="output"></textarea> 
-  <br/>
-    </div>
-  </div>
-  <center>
-  <div class="two-col">
-  <div class="col1">
-    <div class="alert alert-danger" ng-if="error">Wrong Answer</div>
-    <div class="alert alert-success" ng-if="noerror">Answer Accepted</div>
-  </div>
-  </div>
-  </center>
-	
+  </nav>
 
-<br>
-<br>
-
-<center>
-  <div class="two-col">
-  	<input type="submit"  class="btn btn-success" ng-click="send(data)"></input>
-  </div>
-</center>
-</form>
+<div class="">
+  <ul class="nav nav-tabs nav-justified">
+  <li role="presentation"><a ui-sref=".codeeditor">Code Editor</a></li>
+  <li role="presentation"><a ui-sref=".questions">Questions</a></li>
+  <li role="presentation"><a ui-sref=".profile">Profile</a></li>
+</ul>
 </div>
 
+
+<div>     
+    
+
+        <div id="main2">
+
+        
+      <div ui-view></div>
+
+    </div>
+    
+    
+  </div>

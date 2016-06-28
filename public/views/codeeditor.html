@@ -1,0 +1,73 @@
+	<div class="form-style-10">
+		<center>        
+        <header>
+            Code Evaluation
+        </header>
+
+  <center>
+
+    <div class="two-col">
+
+          <div class="col1">    
+                        <label style="display:inline"> Compile With Input :</label>
+                        <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="true" ng-model="data.inputRadio"/>yes
+            <input type="radio" style="display:inline" name="inputRadio" id="inputRadio" value="false" ng-model="data.inputRadio"/>No
+                    </div>
+        
+                    
+              </div>
+    </center>
+</center>
+
+
+  <label class="section" style="clear:both">Editor</label>
+   
+  <div ng-model="data.code" ui-ace="{
+  require: ['ace/ext/language_tools'],
+  advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+  },
+  useWrapMode : true,
+  showGutter: true,
+  theme:'twilight',
+  mode: 'c_cpp',
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}"></div>
+
+
+
+
+
+
+  <div class="two-col">
+    <div class="col1">
+        
+  <label class="section" style="float:left">Input</label>
+  <textarea rows="7" cols="100" id="input" name="input" ng-model="data.input"></textarea> 
+  <br/>
+    </div>
+    <div class="col2">
+      
+  <label class="section" style="float:left">Output</label>
+  <textarea rows="7" cols="100" id="input" name="input" ng-model="output"></textarea> 
+  <br/>
+    </div>
+  </div>
+  
+	
+
+<br>
+<br>
+
+<center>
+  <div class="two-col">
+  	<input type="submit"  class="btn btn-success" ng-click="send(data)"></input>
+  </div>
+</center>
+</form>
+</div>
+</center>
+

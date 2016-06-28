@@ -1,0 +1,101 @@
+<div class="form-style-10">
+
+<label class="section" style="clear:both">Enter your question here</label>
+<div ng-model="data.question" ui-ace="{
+  require: ['ace/ext/language_tools'],
+  advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+  },
+  useWrapMode : true,
+  showGutter: true,
+  theme:'chrome',
+  mode: 'xml',
+  onLoad: aceLoaded,
+  onChange: aceChanged,
+  advanced: {
+    fontSize: 20
+  }
+}"></div>
+
+<br>
+<label class="section" style="clear:both">Enter your solution here</label>
+<div ng-model="data.solution" ui-ace="{
+  require: ['ace/ext/language_tools'],
+  advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+  },
+  useWrapMode : true,
+  showGutter: true,
+  theme:'twilight',
+  mode: 'c_cpp',
+  onLoad: aceLoaded,
+  onChange: aceChanged,
+  advanced: {
+    fontSize: 20
+  }
+}"></div>
+
+<div>
+	<label>Test case 1</label>
+	<input type="text"  ng-model="data.testcase[0]">
+	<input type="text" ng-model="data.output[0]">
+</div>
+<div>
+	<label>Test case 2</label>
+	<input type="text" name="" ng-model="data.testcase[1]">
+	<input type="text" name="" ng-model="data.output[1]">
+</div>
+<div>
+	<label>Test case 3</label>
+	<input type="text" name="" ng-model="data.testcase[2]">
+	<input type="text" name="" ng-model="data.output[2]">
+</div>
+<div>
+	<label>Test case 4</label>
+	<input type="text" name="" ng-model="data.testcase[3]">
+	<input type="text" name="" ng-model="data.output[3]">
+</div>
+<div>
+	<label>Test case 5</label>
+	<input type="text" name="" ng-model="data.testcase[4]">
+	<input type="text" name="" ng-model="data.output[4]">
+</div>
+<div>
+	<label>Test case 6</label>
+	<input type="text" name="" ng-model="data.testcase[5]">
+	<input type="text" name="" ng-model="data.output[5]">
+</div>
+<div>
+	<label>Test case 7</label>
+	<input type="text" name="" ng-model="data.testcase[6]">
+	<input type="text" name="" ng-model="data.output[6]">
+</div>
+<div>
+	<label>Test case 8</label>
+	<input type="text" name="" ng-model="data.testcase[7]">
+	<input type="text" name="" ng-model="data.output[7]">
+</div>
+<div>
+	<label>Test case 9</label>
+	<input type="text" name="" ng-model="data.testcase[8]">
+	<input type="text" name="" ng-model="data.output[8]">
+</div>
+<div>
+	<label>Test case 10</label>
+	<input type="text" name="" ng-model="data.testcase[9]">
+	<input type="text" name="" ng-model="data.output[9]">
+</div>
+
+<div>
+	<label>Test case 10</label>
+	<input type="text" name="" ng-model="data.testcase[10]">
+	<input type="text" name="" ng-model="data.output[10]">
+</div>
+
+
+<input type="submit" class="btn btn-danger" ng-click="send(data)"></button>
+</div>

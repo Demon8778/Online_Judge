@@ -8,6 +8,8 @@ var bodyParser 		= require('body-parser');
 var rn 				= require("random-number");
 var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
+var Q = require('q');
+require('q-foreach')(Q);
 var compiler = require("compilex");
 var option = {stats: true};
 compiler.init(option);
@@ -16,6 +18,7 @@ compiler.init(option);
 var User 			= require('./models/user');
 var Temptoken 		= require('./models/temptoken');
 var config 			= require('../config/database');
+var Question = require('./models/question');
 
 var generatorOptions={
 		length: 8,
@@ -241,9 +244,10 @@ module.exports = function(app) {
 
 //Change password ==========================================================
 	student.post('/changepassword',function(req,res){
-		console.log(req.body)
+		console.log(req.body);
 		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
 		decoded = abc;
+		console.log(decoded);
 		User.findOne({_id: decoded._id},function(err,user){
 			if(err || !user){
 				console.log(err)
@@ -280,7 +284,70 @@ module.exports = function(app) {
 			
 	});
 
-	
+	student.get('/questions', function(req, res){
+		Question.find({}, function(err, questions){
+			if(err)
+				console.log(err);
+			else{
+				res.json({success: true, questions: questions});
+			}
+
+		})
+	})	
+
+
+	student.post('/submit' , function (req , res ) {
+    
+    var id  = req.body.number;
+	var code = req.body.code;
+    var id  = req.body.number;
+    response = {};
+ 	response.output = [];
+    Question.findOne({_id: id}, function(err, question){
+    	if(err)
+    		console.log(err)
+    	else{
+    		var testcase = question.input;
+    		console.log(testcase);
+
+    		var counter = 0;
+    		Q.forEach(testcase, function(value){
+    
+    			console.log(value)
+    			var envData = { OS : "windows" , cmd : "g++"};
+    			compiler.compileCPPWithInput(envData , code , value , function (data) {
+		    				counter = counter + 1;
+		    				console.log(counter);
+			        		if(data.error){
+
+			        			response.output.push(data.error);
+			        		}
+			        		else{
+			        			response.output.push(data.output);
+			        		}
+    				})
+    			var defer = Q.defer();
+    			setTimeout(function(){
+    				defer.resolve(value);
+    			}, 125);
+    			return defer.promise;
+    		}).then(function (resolutions){
+    			console.log("All done!");
+    			response.rsn = "noerror"
+    			res.json(response);
+
+    		})
+    	}
+    })
+
+});
+             
+    student.get('/fullStat' , function(req , res ){
+    compiler.fullStat(function(data){
+        res.send(data);
+    });
+	});
+
 
 
 	student.post('/compilecode' , function (req , res ) {
@@ -288,10 +355,9 @@ module.exports = function(app) {
 	var code = req.body.code;	
 	var input = req.body.input;
     var inputRadio = req.body.inputRadio;
-    var lang = req.body.lang;
+    // var lang = req.body.lang;
     response = {}
-    if((lang === "C") || (lang === "C++"))
-    {        
+           
         if(inputRadio === "true")
         {    
         	var envData = { OS : "windows" , cmd : "g++"};	   	
@@ -334,88 +400,15 @@ module.exports = function(app) {
     		res.json(response);
             });
 	   }
-    }
-    if(lang === "Java")
-    {
-        if(inputRadio === "true")
-        {
-            var envData = { OS : "windows" };     
-            console.log(code);
-            compiler.compileJavaWithInput( envData , code , function(data){
-                res.send(data);
-            });
-        }
-        else
-        {
-            var envData = { OS : "windows" };     
-            console.log(code);
-            compiler.compileJavaWithInput( envData , code , input ,  function(data){
-                res.send(data);
-            });
-
-        }
-
-    }
-    if( lang === "Python")
-    {
-        if(inputRadio === "true")
-        {
-            var envData = { OS : "windows"};
-            compiler.compilePythonWithInput(envData , code , input , function(data){
-                res.send(data);
-            });            
-        }
-        else
-        {
-            var envData = { OS : "windows"};
-            compiler.compilePython(envData , code , function(data){
-                res.send(data);
-            });
-        }
-    }
-    if( lang === "CS")
-    {
-        if(inputRadio === "true")
-        {
-            var envData = { OS : "windows"};
-            compiler.compileCSWithInput(envData , code , input , function(data){
-                res.send(data);
-            });            
-        }
-        else
-        {
-            var envData = { OS : "windows"};
-            compiler.compileCS(envData , code , function(data){
-                res.send(data);
-            });
-        }
-
-    }
-    if( lang === "VB")
-    {
-        if(inputRadio === "true")
-        {
-            var envData = { OS : "windows"};
-            compiler.compileVBWithInput(envData , code , input , function(data){
-                res.send(data);
-            });            
-        }
-        else
-        {
-            var envData = { OS : "windows"};
-            compiler.compileVB(envData , code , function(data){
-                res.send(data);
-            });
-        }
-
-    }
-
-	});
+    
+ });
 
 	student.get('/fullStat' , function(req , res ){
     compiler.fullStat(function(data){
         res.send(data);
     });
 	});
+
+
 
 };

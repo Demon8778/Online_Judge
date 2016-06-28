@@ -1,40 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        
+        <a class="navbar-brand"><span>C </span>Compiler</a>
+        <ul class="user-menu">
+          <li class="dropdown pull-right">
+            <a  class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> {{uname}}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              
+              <li><a ui-sref=".changepassword"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Change Password</a></li>
+              <li><a ui-sref="home" ng-click="logout()"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+              
+    </div>
+  </nav>
 
-	<style type="text/css">
-		textarea{
-			display:block;
-			margin-left:auto;
-			margin-right:auto;
-		}
-	</style>
-	<title>
-		Admin Page
-	</title>
-</head>
-<body>
-
-<div>
-<h3 align="center">Enter New Question here</h3>
-<textarea rows="40" cols="100" name="textarea" required></textarea>
+<div class="">
+  <ul class="nav nav-tabs nav-justified">
+  <li role="presentation"><a ui-sref=".codeeditor">Code Editor</a></li>
+  <li role="presentation"><a ui-sref=".submitque">Submit Question</a></li>
+  <li role="presentation"><a ui-sref=".profile">Profile</a></li>
+</ul>
 </div>
 
-<div style="padding-top:80px;">
-	<h3 align="center">Enter Problem Setter's Solution</h3>
-	<textarea rows="40" cols="100" name="solution" required></textarea>
-</div>
 
-<div class="file-upload-btn" style="align:center; padding-bottom:30px;">
-	<label for="file-upload-1" required>Attach Input Test File</label>
-	<input id="file-upload-1" type="file" name="uploaded" />
-</div>
+<div>     
+    
 
-<div class="file-upload-btn" style="align:center; padding-bottom:30px;">
-	<label for="file-upload-2" required>Attach Output Test File</label>
-	<input id="file-upload-2" type="file" name="uploaded1" />
-</div>
+        <div id="main2">
 
-<input type="submit" value="Submit" action="kiran.html" method="post"></button>
-</body>
-</html>
+        
+      <div ui-view></div>
+
+    </div>
+    
+    
+  </div>

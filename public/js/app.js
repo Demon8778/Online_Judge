@@ -22,15 +22,45 @@ angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','
                 css: 'css/student.css'}
             })
         
+        .state('student.questions', {
+            url: '/questions',
+            templateUrl: 'views/question.html',
+            controller: 'questionCtrl',
+            data: {
+                css: 'css/styles.css'
+            }
+        })
+        .state('student.codeeditor', {
+            url: '/codeeditor',
+            templateUrl: 'views/codeeditor.html',
+            controller: 'codeeditorCtrl',
+            data: {
+                css: 'css/student.css'
+            }
+        })
         
-        
-        
-        .state('customer.changepassword', {
+        .state('student.profile', {
+            url:'/profile',
+            templateUrl: 'views/studentprofile.html',
+            controller: 'profileCtrl',
+            data: {
+                css: 'css/student.css'
+            }
+        })
+        .state('student.result', {
+            url:'/profile',
+            templateUrl: 'views/result.html',
+            controller: 'resultCtrl',
+            data: {
+                css: 'css/student.css'
+            }
+        })
+        .state('student.changepassword', {
             url: '/changepassword',
             templateUrl: 'views/changepassword.html',
-            controller: 'ChangepasswordController',
+            controller: 'changeCtrl',
             data: {
-                css: 'css/complaint.css'
+                css: 'css/student.css'
             }
 
         })
@@ -38,9 +68,9 @@ angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','
         .state('admin.changepassword', {
             url: '/changepassword',
             templateUrl: 'views/changepassword.html',
-            controller: 'ChangepasswordController',
+            controller: 'changeCtrl',
             data: {
-                css: 'css/complaint.css'
+                css: 'css/student.css'
             }
 
         })
@@ -69,8 +99,26 @@ angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','
             data: {
                 css: 'css/styles.css'
             }
+         })
+
+        .state('admin.submitque', {
+            url: '/submitque',
+            templateUrl: 'views/submitque.html',
+            controller: 'adminCtrl',
+            data: {
+                css: 'css/student.css'
+            }
 
         })
 
-        
+        .state('admin.codeeditor', {
+            url: '/codeeditor',
+            templateUrl: 'views/codeeditor.html',
+            controller: 'codeeditorCtrl',
+            data: {
+                css: 'css/student.css'
+            }
+
+        })
+
     });

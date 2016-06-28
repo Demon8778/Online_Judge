@@ -1,0 +1,43 @@
+
+<div class="form-style-10">
+	<div ng-repeat="question in questions" ng-init="myIndex = $index + 1">
+		<h3 data-toggle="collapse" data-target="#demon{{$index+1}}"><span class="glyphicon glyphicon-plus" ng-model="data.number = myIndex"></span> 
+		 Question {{$index+1}} </h3>
+		<div id="demon{{$index+1}}" class="collapse">
+			<li>{{question.content}}</li>
+				<label class="section" style="clear:both;">Paste your code here</label>
+				<br>
+				<div ng-model="data.code" ui-ace="{
+					require: ['ace/ext/language_tools'],
+					advanced: {
+					enableSnippets: true,
+					enableBasicAutocompletion: true,
+					enableLiveAutocompletion: true
+					},
+					useWrapMode : true,
+					showGutter: true,
+					theme:'twilight',
+					mode: 'c_cpp',
+					onLoad: aceLoaded,
+					onChange: aceChanged
+					}">		
+				</div>
+			<div class="row" ng-if="noerror">
+				<div ng-repeat="res in results track by $index" class="col-md-3">
+						<h6>Test case: {{$index + 1}} {{res}}</h6>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="two-col" style="float: right">
+				<input type="submit"  class="btn btn-success" ng-click="send(data)"></input>
+			</div>
+
+		</div>
+	</div>
+	
+</div>
+			
+
+
