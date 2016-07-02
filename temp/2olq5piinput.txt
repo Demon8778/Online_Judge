@@ -1,0 +1,6 @@
+function () {
+  var ret = [].sort.apply(this, arguments);
+  this._registerAtomic('$set', this);
+  this._markModified();
+  return ret;
+}

@@ -1,0 +1,10 @@
+function $shift() {
+  this._registerAtomic('$pop', -1);
+  this._markModified();
+
+  // only allow shifting once
+  if (this._shifted) return;
+  this._shifted = true;
+
+  return [].shift.call(this);
+}

@@ -1,0 +1,6 @@
+function () {
+  var ret = [].shift.call(this);
+  this._registerAtomic('$set', this);
+  this._markModified();
+  return ret;
+}

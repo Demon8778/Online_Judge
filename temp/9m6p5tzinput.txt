@@ -1,0 +1,40 @@
+function (value) {
+  var owner = this._owner;
+  var populated = false;
+  var Model;
+
+  if (this._parent) {
+    // if a populated array, we must cast to the same model
+    // instance as specified in the original query.
+    if (!owner) {
+      owner = this._owner = this._parent.ownerDocument
+        ? this._parent.ownerDocument()
+        : this._parent;
+    }
+
+    populated = owner.populated(this._path, true);
+  }
+
+  if (populated && null != value) {
+    // cast to the populated Models schema
+    var Model = populated.options.model;
+
+    // only objects are permitted so we can safely assume that
+    // non-objects are to be interpreted as _id
+    if (Buffer.isBuffer(value) ||
+        value instanceof ObjectId || !utils.isObject(value)) {
+      value = { _id: value };
+    }
+
+    // gh-2399
+    // we should cast model only when it's not a discriminator
+    var isDisc = value.schema && value.schema.discriminatorMapping &&
+      value.schema.discriminatorMapping.key !== undefined;
+    if (!isDisc) {
+      value = new Model(value);
+    }
+    return this._schema.caster.cast(value, this._parent, true)
+  }
+
+  return this._schema.caster.cast(value, this._parent, false)
+}

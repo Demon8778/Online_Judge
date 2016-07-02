@@ -1,9 +1,10 @@
 
 <div class="form-style-10">
-	<div ng-repeat="question in questions" ng-init="myIndex = $index + 1">
-		<h3 data-toggle="collapse" data-target="#demon{{$index+1}}"><span class="glyphicon glyphicon-plus" ng-model="data.number = myIndex"></span> 
+	<div ng-repeat="question in questions">
+		<h3 data-toggle="collapse" data-target="#demon{{$index+1}}"><span class="glyphicon glyphicon-plus"></span> 
 		 Question {{$index+1}} </h3>
 		<div id="demon{{$index+1}}" class="collapse">
+			<h5 ng-model = "title">{{question.title}}</h5>
 			<li>{{question.content}}</li>
 				<label class="section" style="clear:both;">Paste your code here</label>
 				<br>

@@ -1,0 +1,11 @@
+function (options) {
+  if (options && options.depopulate) {
+    return this.map(function (doc) {
+      return doc instanceof Document
+        ? doc.toObject(options)
+        : doc
+    });
+  }
+
+  return this.slice();
+}

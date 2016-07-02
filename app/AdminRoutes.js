@@ -21,6 +21,7 @@ module.exports = function(app, admin){
 	admin.post('/question', function(req, res){
 
 		var newQue = new Question({
+			title: req.body.title,
 			content: req.body.question,
 			answer: req.body.solution,
 			input: req.body.testcase,

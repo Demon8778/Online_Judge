@@ -1,0 +1,10 @@
+function () {
+  var values = [].map.call(arguments, this._cast, this)
+    , ret = [].push.apply(this, values);
+
+  // $pushAll might be fibbed (could be $push). But it makes it easier to
+  // handle what could have been $push, $pushAll combos
+  this._registerAtomic('$pushAll', values);
+  this._markModified();
+  return ret;
+}

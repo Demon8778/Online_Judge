@@ -1,0 +1,7 @@
+function hasAtomics() {
+  if (!(this._atomics && 'Object' === this._atomics.constructor.name)) {
+    return 0;
+  }
+
+  return Object.keys(this._atomics).length;
+}

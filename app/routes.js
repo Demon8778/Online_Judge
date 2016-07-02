@@ -8,6 +8,7 @@ var bodyParser 		= require('body-parser');
 var rn 				= require("random-number");
 var nodemailer 		= require("nodemailer");
 var generator 		= require("generate-password");
+var Promise = require('bluebird');
 var Q = require('q');
 require('q-foreach')(Q);
 var compiler = require("compilex");
@@ -19,7 +20,9 @@ var User 			= require('./models/user');
 var Temptoken 		= require('./models/temptoken');
 var config 			= require('../config/database');
 var Question = require('./models/question');
+var Submission = require('./models/Submission');
 
+Promise.promisifyAll(Question);
 var generatorOptions={
 		length: 8,
 		number: true,
@@ -241,6 +244,14 @@ module.exports = function(app) {
 		})
 	})
 
+	student.get('/submissions', function(req, res){
+		var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+		decoded = abc;
+		console.log(abc);
+		Submission.find({owner: decoded._id}, function(err, submissions){
+			res.json({success:true, data: submissions});
+		})	
+	})
 
 //Change password ==========================================================
 	student.post('/changepassword',function(req,res){
@@ -297,49 +308,86 @@ module.exports = function(app) {
 
 
 	student.post('/submit' , function (req , res ) {
-    
-    var id  = req.body.number;
-	var code = req.body.code;
-    var id  = req.body.number;
-    response = {};
- 	response.output = [];
-    Question.findOne({_id: id}, function(err, question){
-    	if(err)
-    		console.log(err)
-    	else{
-    		var testcase = question.input;
-    		console.log(testcase);
+    var abc = jwt.decode(req.cookies.jwt, app.get('superSecret'));
+	decoded = abc;
+	console.log(decoded);
 
+    var title = req.body.title;
+    console.log(title);
+	var code = req.body.code;
+	
+    response = {};
+    response.success = true;
+ 	response.output = [];
+
+    var query = Question.findOne({title: title}).exec();
+    	
+   	query.then(function(question){
+   			var testcase = question.input;
+    		var output1 = question.output;
+    		console.log(testcase);
+    		var title = question.title;
     		var counter = 0;
     		Q.forEach(testcase, function(value){
-    
-    			console.log(value)
+    			
     			var envData = { OS : "windows" , cmd : "g++"};
     			compiler.compileCPPWithInput(envData , code , value , function (data) {
 		    				counter = counter + 1;
 		    				console.log(counter);
 			        		if(data.error){
-
-			        			response.output.push(data.error);
+			        			if(counter <= output1.length){
+			        				response.success = false;
+			        				console.log("hii1");
+			        				response.output.push(data.error);
+			        			}
+			        			
 			        		}
 			        		else{
-			        			response.output.push(data.output);
+			        			console.log(value);
+			        			console.log(output1[counter-1]);
+			        			if(data.output != output1[counter-1] && counter <= output1.length){
+			        				response.success = false;
+			        				console.log("hii2");
+			        			}
+			        			else if(counter <= output1.length){
+			        				response.output.push(data.output);
+			        			}
+			        			
 			        		}
     				})
     			var defer = Q.defer();
     			setTimeout(function(){
     				defer.resolve(value);
-    			}, 125);
+    			}, 500);
+
+    			
     			return defer.promise;
+    		}).then(function(resolutions){
+    			if(response.success == true)
+    				result = 'Answer Accepted';
+    			else
+    				result = 'Wrong Answer';
+
+    			var newSubmission  = new Submission({
+    				title: title,
+    				language: "C",
+    				result: result,
+    				score: 100,
+    				owner: decoded._id
+    			});
+
+    			console.log(newSubmission);
+
+    			newSubmission.save(function (err){
+					if(err)
+						console.log(err)
+				});
     		}).then(function (resolutions){
     			console.log("All done!");
     			response.rsn = "noerror"
     			res.json(response);
-
     		})
-    	}
-    })
-
+   	})	
 });
              
     student.get('/fullStat' , function(req , res ){
@@ -408,7 +456,5 @@ module.exports = function(app) {
         res.send(data);
     });
 	});
-
-
 
 };

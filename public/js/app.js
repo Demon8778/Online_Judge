@@ -39,22 +39,22 @@ angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','
             }
         })
         
-        .state('student.profile', {
-            url:'/profile',
+        .state('student.submissions', {
+            url:'/submissions',
             templateUrl: 'views/studentprofile.html',
-            controller: 'profileCtrl',
+            controller: 'submissionCtrl',
             data: {
                 css: 'css/student.css'
             }
         })
-        .state('student.result', {
-            url:'/profile',
-            templateUrl: 'views/result.html',
-            controller: 'resultCtrl',
-            data: {
-                css: 'css/student.css'
-            }
-        })
+        // .state('student.result', {
+        //     url:'/profile',
+        //     templateUrl: 'views/result.html',
+        //     controller: 'resultCtrl',
+        //     data: {
+        //         css: 'css/student.css'
+        //     }
+        // })
         .state('student.changepassword', {
             url: '/changepassword',
             templateUrl: 'views/changepassword.html',

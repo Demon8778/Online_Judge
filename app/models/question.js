@@ -11,6 +11,7 @@ var count = mongoose.model('Count', CounterSchema);
 
 var queSchema = Schema({
 	_id: {type: Number, index: true},
+	title: String,
 	content: String,
 	answer: String,
 	input: [String],
