@@ -42,7 +42,7 @@
   }
 }"></div>
 
-<div>
+<!-- <div>
 	<label>Test case 1</label>
 	<input type="text"  ng-model="data.testcase[0]">
 	<input type="text" ng-model="data.output[0]">
@@ -97,8 +97,29 @@
 	<label>Test case 10</label>
 	<input type="text" name="" ng-model="data.testcase[10]">
 	<input type="text" name="" ng-model="data.output[10]">
-</div>
+</div> -->
 
+
+
+
+<!-- <div class="container">
+
+  
+  
+    <div class="form-group">
+        <label>Input File</label>
+        <input type="file" id="BSbtndanger" ng-model = "data.input">
+    </div>
+    <div class="form-group">
+        <label>Output File</label>
+        <input type="file" id="BSbtnsuccess" ng-model="data.output">
+    </div>
+    
+      
+</div> -->
+
+<input filepicker type="filepicker" data-fp-services="computer,facebook,webcam,box" on-success="onSuccess(event.fpfile)" data-fp-button-class="btn btn-success" />
 
 <input type="submit" class="btn btn-danger" ng-click="send(data)"></button>
 </div>
+

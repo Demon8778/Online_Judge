@@ -20,6 +20,7 @@
     "generate-password": "^1.1.1",
     "hackerearth-node": "^2.3.8",
     "jsonwebtoken": "^5.7.0",
+    "line-by-line": "^0.1.5",
     "mongoose": "~3.8.1",
     "morgan": "~1.0.0",
     "nodemailer": "0.7.1",

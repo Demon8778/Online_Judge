@@ -1,1 +1,1 @@
-angular.module('Onlinejudge.Controllers', []);
+angular.module('Onlinejudge.Controllers', [])

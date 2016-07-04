@@ -1,6 +1,7 @@
-angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','ui.router', 'uiRouterStyles', 'ui.ace'])
-.config(function($stateProvider, $urlRouterProvider,$locationProvider) {
+angular.module('Onlinejudge',['Onlinejudge.Services','Onlinejudge.Controllers','ui.router', 'uiRouterStyles', 'ui.ace', 'angular-filepicker'])
+.config(function($stateProvider, $urlRouterProvider,$locationProvider, filepickerProvider) {
     $urlRouterProvider.otherwise('/');
+    filepickerProvider.setKey(' AHukW8wutSdq49wZDx3mcz');
     $stateProvider
         .state('home',{
             url: '/',
