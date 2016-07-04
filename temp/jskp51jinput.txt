@@ -1,7 +1,0 @@
-function () {
-  var values = [].map.call(arguments, this._cast, this);
-  [].unshift.apply(this, values);
-  this._registerAtomic('$set', this);
-  this._markModified();
-  return this.length;
-}

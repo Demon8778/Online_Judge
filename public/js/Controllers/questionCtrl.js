@@ -1,7 +1,7 @@
-angular.module('Onlinejudge.Controllers').controller('questionCtrl',["$scope","$http","$location","$state", "token", function($scope,$http,$location,$state, token){
+angular.module('Onlinejudge.Controllers').controller('questionCtrl',["$scope","$http","$location","$state", "token", "Retrievetitle", function($scope,$http,$location,$state, token, Retrievetitle){
 
 		token.setnotoken(!1);
-
+		
 		
 		$http.get('/student/questions').success(function(response){
 			console.log(response);
@@ -11,7 +11,6 @@ angular.module('Onlinejudge.Controllers').controller('questionCtrl',["$scope","$
 
 		$scope.send = function(data){
 			console.log(data);
-			data.title = title
 			$http.post('/student/submit', data).success(function(response){
 				console.log(response);
 				if(response.rsn==='error'){

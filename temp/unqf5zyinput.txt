@@ -1,8 +1,0 @@
-function indexOf(obj) {
-  if (obj instanceof ObjectId) obj = obj.toString();
-  for (var i = 0, len = this.length; i < len; ++i) {
-    if (obj == this[i])
-      return i;
-  }
-  return -1;
-}

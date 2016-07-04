@@ -1,6 +1,0 @@
-function () {
-  var ret = [].pop.call(this);
-  this._registerAtomic('$set', this);
-  this._markModified();
-  return ret;
-}

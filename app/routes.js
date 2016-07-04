@@ -457,4 +457,11 @@ module.exports = function(app) {
     });
 	});
 
+	student.post('/title', function(req, res){
+		Question.findOne({title: req.body})
+				.exec(function(err,doc){
+					res.json({success: true, title: doc.title});
+				})
+	})
+
 };

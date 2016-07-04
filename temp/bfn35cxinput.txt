@@ -1,5 +1,0 @@
-function set(i, val) {
-  this[i] = this._cast(val);
-  this._markModified(i);
-  return this;
-}
